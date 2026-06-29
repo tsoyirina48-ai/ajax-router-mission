@@ -7,6 +7,12 @@ export default function PostNew({ onCreate }) {
     const navigate = useNavigate();
     const handleSubmit = (e) => {
         e.preventDefault();
+      if (!title.trim() || ! content.trim()) {
+        alert("제목과 내용을 입력하세요.");
+        return;
+      }
+
+
     const newPost = {
         id: Date.now(),
         title,

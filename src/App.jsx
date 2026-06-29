@@ -13,14 +13,14 @@ function App() {
   const [posts, setPosts] = useState([]);
   const [loaded, setLoaded] = useState(false);
   const onDelete = (id) => {
-    setPosts(posts.filter((post) => post.id !== id));
+    setPosts((prev) => prev.filter((post) => post.id !== id));
   };
   const onCreate = (newPost) => {
-      setPosts([newPost, ...posts]);
+      setPosts((prev) => [newPost, ...prev]);
   };
   const onUpdate = (updatedPost) => {
-    setPosts(
-      posts.map((post) => post.id === updatedPost.id ?
+    setPosts((prev) =>
+      prev.map((post) => post.id === updatedPost.id ?
     updatedPost : post)
     );
   };

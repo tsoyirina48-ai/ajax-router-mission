@@ -16,6 +16,10 @@ export default function PostEdit({ posts, onUpdate }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!title.trim() || ! content.trim()); {
+      alert("제목과 내용을 입력하세요.");
+      return;
+    }
 
     const updatedPost = {
       ...post,
