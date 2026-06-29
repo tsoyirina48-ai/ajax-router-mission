@@ -1,0 +1,28 @@
+.header {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+.header h1 {
+    margin: 0;
+    font-size: 2em;
+}
+.header h1 a {
+    text-decoration: none;
+}
+
+.active {
+    text-decoration:  underline;
+    font-weight: 700;
+}
+.nav {
+    display: flex;
+    gap: 10px;
+}
+.nav a {
+    text-decoration: 0;
+}
+.nav a.active {
+    text-decoration: underline;
+    font-weight: 700;
+}

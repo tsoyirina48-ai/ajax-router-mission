@@ -1,6 +1,6 @@
 import './App.css';
 import { useEffect, useState } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router";
 import Layout from "./components/Layout";
 import Home from "./pages/Home";
 import Posts from "./pages/Posts";
@@ -25,25 +25,38 @@ function App() {
     );
   };
   
-  useEffect(() => {
-    let alive = true;
+    useEffect(() => {
+    //let alive = true;
+    const controller = new AbortController();
 
-    fetch("/data/blog.json")
-    .then((res) => res.json())
-    .then((data) => {
-      if (!alive) return;
-
-      setPosts(data);
+    async function fetchData(){
+    
+    try {
+      const res = await fetch("/data/blog.json", {
+        
+    signal: controller.signal,
+      });
+      if (!res.ok) throw new Error("메시지");
+      const data = await res.json();
+      setPosts([]);
+    } catch (e) {
+      console.error(e);
+      setPosts([]);
+    } finally {
       setLoaded(true);
-    });
+     }
+    }
+    fetchData();
+
+
     return () => {
-      alive = false;
+      //alive = false;
     };
   }, []);
 
 
   return (
-
+<>
 <Routes>
       <Route path="/" element={<Layout loaded={loaded} />}>
         <Route index element={<Home posts={posts} />} />        
@@ -61,6 +74,7 @@ function App() {
         />
       </Route>      
     </Routes>
+    </>
   );
 }
 
