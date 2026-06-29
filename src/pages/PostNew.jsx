@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
+import styles from "./PostNew.module.css";
 
 export default function PostNew({ onCreate }) {
     const [title, setTitle] = useState("");
@@ -26,7 +27,8 @@ export default function PostNew({ onCreate }) {
         <section>
             <h2>글 작성</h2>
 
-            <form onSubmit={handleSubmit}>
+            <form className={styles.form}
+            onSubmit={handleSubmit}>
                 <input value={title}
                 onChange={(e) =>
                     setTitle(e.target.value)

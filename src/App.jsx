@@ -1,5 +1,5 @@
 import './App.css';
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { Routes, Route } from "react-router";
 import Layout from "./components/Layout";
 import Home from "./pages/Home";
@@ -8,6 +8,7 @@ import PostDetail from "./pages/PostDetail";
 import PostNew from "./pages/PostNew";
 import PostEdit from "./pages/PostEdit";
 import NotFound from "./pages/NotFound";
+
 
 function App() {
   const [posts, setPosts] = useState([]);
@@ -25,6 +26,7 @@ function App() {
     );
   };
   
+  
     useEffect(() => {
     //let alive = true;
     const controller = new AbortController();
@@ -38,7 +40,7 @@ function App() {
       });
       if (!res.ok) throw new Error("메시지");
       const data = await res.json();
-      setPosts([]);
+      setPosts(data);
     } catch (e) {
       console.error(e);
       setPosts([]);
@@ -53,6 +55,12 @@ function App() {
       //alive = false;
     };
   }, []);
+    
+
+    const newId = useMemo(()=>{
+    const maxId = posts.reduce((acc, current) => {return Math.max(acc, current.id)}, 0)
+    return maxId + 1;
+  },[posts]);
 
 
   return (
